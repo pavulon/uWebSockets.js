@@ -1,0 +1,7 @@
+{
+  "name": "uWebSockets.js",
+  "readme": "none",
+  "disableSources": true,
+  "out": "generated",
+  "entryPoints": ["./index.d.ts"]
+}
