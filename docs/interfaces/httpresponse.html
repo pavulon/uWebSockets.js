@@ -158,9 +158,10 @@
 									in one TLS block being sent off, each with one send syscall.</p>
 								</div>
 								<p>Example usage:</p>
-								<p>res.cork(() =&gt; {
-									res.writeStatus(&quot;200 OK&quot;).writeHeader(&quot;Some&quot;, &quot;Value&quot;).write(&quot;Hello world!&quot;);
-								});</p>
+								<pre><code><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #795E26">cork</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">res</span><span style="color: #000000">.</span><span style="color: #795E26">writeStatus</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;200 OK&quot;</span><span style="color: #000000">).</span><span style="color: #795E26">writeHeader</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Some&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;Value&quot;</span><span style="color: #000000">).</span><span style="color: #795E26">write</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Hello world!&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">});</span>
+</code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
