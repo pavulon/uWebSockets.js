@@ -167,10 +167,11 @@ export interface HttpResponse {
      * in one TLS block being sent off, each with one send syscall.
      *
      * Example usage:
-     *
+     * ```
      * res.cork(() => {
      *   res.writeStatus("200 OK").writeHeader("Some", "Value").write("Hello world!");
      * });
+     * ```
      */
     cork(cb: () => void) : void;
 
@@ -243,18 +244,22 @@ export interface AppOptions {
     ssl_prefer_low_memory_usage?: boolean;
 }
 
-export enum ListenOptions {
-  LIBUS_LISTEN_DEFAULT = 0,
-  LIBUS_LISTEN_EXCLUSIVE_PORT = 1
-}
+/** {@link TemplatedApp.listen} options */
+export type ListenOptions = number;
+/** No meaning, default listen option */
+export const LIBUS_LISTEN_DEFAULT: ListenOptions;
+/** We exclusively own this port, do not share it */
+export const LIBUS_LISTEN_EXCLUSIVE_PORT: ListenOptions;
 
 /** TemplatedApp is either an SSL or non-SSL app. See App for more info, read user manual. */
 export interface TemplatedApp {
     /** Listens to hostname & port. Callback hands either false or a listen socket. */
-    listen(host: RecognizedString, port: number, cb: (listenSocket: us_listen_socket) => void): TemplatedApp;
+    listen(host: RecognizedString, port: number, cb: (listenSocket: us_listen_socket | false) => void): TemplatedApp;
+    /** Listens to hostname & port and sets Listen Options. Options can be set to LIBUS_LISTEN_EXCLUSIVE_PORT or LIBUS_LISTEN_DEFAULT. Callback hands either false or a listen socket. */
+    listen(host: RecognizedString, port: number, options: ListenOptions, cb: (listenSocket: us_listen_socket | false) => void): TemplatedApp;
     /** Listens to port. Callback hands either false or a listen socket. */
-    listen(port: number, cb: (listenSocket: any) => void): TemplatedApp;
-    /** Listens to port and sets Listen Options. Callback hands either false or a listen socket. */
+    listen(port: number, cb: (listenSocket: us_listen_socket | false) => void): TemplatedApp;
+    /** Listens to port and sets Listen Options. Options can be set to LIBUS_LISTEN_EXCLUSIVE_PORT or LIBUS_LISTEN_DEFAULT. Callback hands either false or a listen socket. */
     listen(port: number, options: ListenOptions, cb: (listenSocket: us_listen_socket | false) => void): TemplatedApp;
     /** Registers an HTTP GET handler matching specified URL pattern. */
     get(pattern: RecognizedString, handler: (res: HttpResponse, req: HttpRequest) => void) : TemplatedApp;
